@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>2d drawing soft</title>
+        <meta charset="utf-8">
+
+        <script src="../paint.js"></script>
+        <script src="../2d.js"></script>
+    </head>
+    <body>
+        <div id="main">
+            <canvas id="output"></canvas>
+        </div>
+    </body>
+</html>
+<script>
+
+function sample() {
+    let paint = new Paint("output")
+    paint.setup(500,500)
+    paint.paintFilledCircle(100,100,50,[255,0,0])
+    paint.update()
+}
+
+</script>
+<style>
+</style>
