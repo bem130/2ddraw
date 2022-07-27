@@ -70,7 +70,6 @@ class Paint {
                     pts[s].push(this.m2d.linesplitpoint(pts[s-1][p],pts[s-1][p+1],t))
                 }
             }
-            console.log(pts)
             let dot = this.m2d.floor(pts[pts[0].length-1][0])
             this.paintDot(dot[0],dot[1],rgbcolor)
         }
