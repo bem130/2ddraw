@@ -24,8 +24,8 @@ function sample() {
 
 function bezier() {
     paint = new Paint("output")
-    paint.setup(100,100)
-    paint.paintBezierCurve([0,0,0])
+    paint.setup(500,100)
+    paint.paintBezierCurve3([[0,50],[30,0],[60,100],[120,0],[180,100]],[0,0,0])
     paint.update()
 }
 bezier()

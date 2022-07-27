@@ -52,7 +52,17 @@ class Paint {
             }
         }
     }
-    paintBezierCurve(rgbcolor) {
+
+    paintBezierCurve1(rgbcolor) {
+        let start = [10,10]
+        let end = [100,10]
+        let lines = [[start,end]]
+        for (let t=0;t<1;t+=0.001) {
+            let dot = this.m2d.floor(this.m2d.linesplitpoint(lines[0][0],lines[0][1],t))
+            this.paintDot(dot[0],dot[1],rgbcolor)
+        }
+    }
+    paintBezierCurve2(rgbcolor) {
         let start = [10,10]
         let end = [100,10]
         let p1 = [20,100]
@@ -64,15 +74,34 @@ class Paint {
             this.paintDot(dot[0],dot[1],rgbcolor)
         }
     }
-    paintBezierCurve(rgbcolor) {
-        let start = [10,10]
-        let end = [100,10]
+    paintBezierCurve3(rgbcolor) {
+        let start = [10,40]
+        let end = [100,40]
         let p1 = [20,100]
-        let lines = [[start,p1],[p1,end]]
+        let p2 = [50,0]
+        let lines = [[start,p1],[p1,p2],[p2,end]]
         for (let t=0;t<1;t+=0.001) {
             let sp1 = this.m2d.linesplitpoint(lines[0][0],lines[0][1],t)
             let sp2 = this.m2d.linesplitpoint(lines[1][0],lines[1][1],t)
-            let dot = this.m2d.floor(this.m2d.linesplitpoint(sp1,sp2,t))
+            let sp3 = this.m2d.linesplitpoint(lines[2][0],lines[2][1],t)
+            let sp21 = this.m2d.linesplitpoint(sp1,sp2,t)
+            let sp22 = this.m2d.linesplitpoint(sp2,sp3,t)
+            let dot = this.m2d.floor(this.m2d.linesplitpoint(sp21,sp22,t))
+            this.paintDot(dot[0],dot[1],rgbcolor)
+        }
+    }
+
+    paintBezierCurve3(points,rgbcolor) {
+        for (let t=0;t<1;t+=0.01) {
+            let s = 1
+            let pts = [points]
+            for (s=1;s<pts[0].length-1;s++) {
+                pts.push([])
+                for (let p=0;p<pts[s-1].length-1;p++) {
+                    pts[s].push(this.m2d.linesplitpoint(pts[s-1][p],pts[s-1][p+1],t))
+                }
+            }
+            let dot = this.m2d.floor(this.m2d.linesplitpoint(pts[pts[0].length-2][0],pts[pts[0].length-2][1],t))
             this.paintDot(dot[0],dot[1],rgbcolor)
         }
     }
