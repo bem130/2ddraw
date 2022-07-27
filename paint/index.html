@@ -16,12 +16,19 @@
 <script>
 
 function sample() {
-    let paint = new Paint("output")
+    paint = new Paint("output")
     paint.setup(500,500)
     paint.paintFilledCircle(100,100,50,[255,0,0])
     paint.update()
 }
 
+function bezier() {
+    paint = new Paint("output")
+    paint.setup(100,100)
+    paint.paintBezierCurve([0,0,0])
+    paint.update()
+}
+bezier()
 </script>
 <style>
 </style>

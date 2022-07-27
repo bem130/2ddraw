@@ -52,4 +52,28 @@ class Paint {
             }
         }
     }
+    paintBezierCurve(rgbcolor) {
+        let start = [10,10]
+        let end = [100,10]
+        let p1 = [20,100]
+        let lines = [[start,p1],[p1,end]]
+        for (let t=0;t<1;t+=0.001) {
+            let sp1 = this.m2d.linesplitpoint(lines[0][0],lines[0][1],t)
+            let sp2 = this.m2d.linesplitpoint(lines[1][0],lines[1][1],t)
+            let dot = this.m2d.floor(this.m2d.linesplitpoint(sp1,sp2,t))
+            this.paintDot(dot[0],dot[1],rgbcolor)
+        }
+    }
+    paintBezierCurve(rgbcolor) {
+        let start = [10,10]
+        let end = [100,10]
+        let p1 = [20,100]
+        let lines = [[start,p1],[p1,end]]
+        for (let t=0;t<1;t+=0.001) {
+            let sp1 = this.m2d.linesplitpoint(lines[0][0],lines[0][1],t)
+            let sp2 = this.m2d.linesplitpoint(lines[1][0],lines[1][1],t)
+            let dot = this.m2d.floor(this.m2d.linesplitpoint(sp1,sp2,t))
+            this.paintDot(dot[0],dot[1],rgbcolor)
+        }
+    }
 }
