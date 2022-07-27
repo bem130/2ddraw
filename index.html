@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>2d drawing soft</title>
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <div id="main">
+            <canvas id="output"></canvas>
+        </div>
+    </body>
+</html>
+<script>
+
+class Paint {
+    constructor(canvas_id) {
+        this.canvas = canvas_id
+        this.data
+        this.x
+        this.y
+    }
+    makeimg() {
+        let co = document.createElement("canvas");
+        co.height = this.y;
+        co.width = this.x;
+        co.getContext('2d').putImageData(new ImageData(this.data,this.x,this.y),0,0);
+        return co.toDataURL('image/png');
+    }
+    output_img(img_id) {
+        document.getElementById(img_id).src = mkimg()
+    }
+    update() {
+        let co = document.getElementById(this.canvas);
+        co.height = this.y;
+        co.width = this.x;
+        co.getContext('2d').putImageData(new ImageData(this.data,this.x,this.y),0,0);
+    }
+    setup(x,y) {
+        this.data = new Uint8ClampedArray(x*y*4).fill(255)
+        this.x = x
+        this.y = y
+    }
+    paintDot(x,y,color) {
+        let idx = (y*this.x+x)*4;
+        this.data[idx+0] = color[0]; // Red
+        this.data[idx+1] = color[1]; // Green
+        this.data[idx+2] = color[2]; // Blue
+    }
+}
+
+function sample() {
+    let paint = new Paint("output")
+    paint.setup(100,100)
+    paint.paintDot(10,10,[255,0,0])
+    paint.update()
+}
+
+</script>
+<style>
+</style>
