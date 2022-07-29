@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>2d paint soft</title>
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <div id="main">
+            <canvas id="output"></canvas>
+        </div>
+    </body>
+</html>
+<script src="../paint.js"></script>
+<script src="../2d.js"></script>
+<script>
+
+function sample() {
+    paint = new Paint("output")
+    paint.setup(100,100)
+    paint.paintLine([10,10],[80,80],[255,0,0])
+    paint.update()
+}
+sample()
+
+</script>
+<style>
+    #output {
+        width: 500px;
+        image-rendering: pixelated;
+    }
+</style>

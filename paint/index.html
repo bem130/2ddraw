@@ -77,15 +77,44 @@ window.onload = function() {
     paint = new Paint("output")
 }
 
+let isDrawing = false;
+let isEditing = false;
+
+function pen(e) {
+    let x = e.offsetX;
+    let y = e.offsetY;
+    paint.paintFilledCircle(x,y,10,[0,0,0])
+    paint.update()
+}
+
+function move(e) {
+    if (isDrawing) {
+        pen(e)
+    }
+}
+function down(e) {
+    isDrawing = true;
+    pen(e)
+}
+function up(e) {
+    isDrawing = false;
+}
+
+imgelm = document.getElementById("output")
+imgelm.addEventListener('mousemove', move);
+imgelm.addEventListener('mousedown', down);
+imgelm.addEventListener('mouseup', up);
+
 // resize window
 function resizeImg() {
     dw = paint.x;
     dh = paint.y;
-    let elm = document.getElementById("output")
+    let elm = document.getElementById("main")
     let left_area = 100;
     let rw = 0;let rh = 0;
-    let ww = window.innerWidth-left_area;
-    let wh = window.innerHeight;
+    let margin = 10;
+    let ww = window.innerWidth-left_area-margin*2;
+    let wh = window.innerHeight-margin*2;
     let csc = 1
     hcsc = ww/dw
     wcsc = wh/dh
@@ -98,11 +127,11 @@ function resizeImg() {
         csc = hcsc
         rh = (wh - dh*csc)/2
     }
-    elm.style.marginTop = (rh).toString()+"px";
-    elm.style.marginBottom = (rh).toString()+"px";
-    elm.style.marginLeft = (rw+left_area).toString()+"px";
-    elm.style.marginRight = (rw).toString()+"px";
-    elm.style.transform = "scale("+csc.toString()+","+csc.toString()+")";
+    elm.style.marginTop = (rh+margin).toString()+"px";
+    elm.style.marginBottom = (rh+margin).toString()+"px";
+    elm.style.marginLeft = (rw+left_area+margin).toString()+"px";
+    elm.style.marginRight = (rw+margin).toString()+"px";
+    imgelm.style.transform = "scale("+csc.toString()+","+csc.toString()+")";
 };
 window.onresize = resizeImg
 </script>
@@ -138,6 +167,10 @@ window.onresize = resizeImg
         image-rendering: pixelated;
         transform-origin: top left;
         position: fixed;
+    }
+    #main {
+        position: absolute;
+        top: 0px;
     }
     #tools {
         position: fixed;
