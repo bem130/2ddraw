@@ -44,6 +44,11 @@ class Paint {
         this.y = y
     }
     paintLine(p1,p2,rgbcolor) { // 参考: https://ja.wikipedia.org/wiki/%E3%83%96%E3%83%AC%E3%82%BC%E3%83%B3%E3%83%8F%E3%83%A0%E3%81%AE%E3%82%A2%E3%83%AB%E3%82%B4%E3%83%AA%E3%82%BA%E3%83%A0
+        if (p1[0]>p2[0]) {
+            let tmp = p1
+            p1 = p2
+            p2 = tmp
+        }
         let tx = Math.abs(p2[0]-p1[0])
         let ty = Math.abs(p2[1]-p1[1])
         this.paintDot(p1[0],p1[1],[0,0,0])
@@ -55,18 +60,34 @@ class Paint {
         let e2
         if (p1[0]<p2[0]) {sx=1} else {sx=-1}
         if (p1[1]<p2[1]) {sy=1} else {sy=-1}
-        while (true){
-            this.paintDot(dx,dy,rgbcolor)
-            console.log(dx,dy)
-            if (dx>=p2[0]&dy>=p2[1]) {break;}
-            e2 = 2*err
-            if (e2>-ty) {
-                err = err - ty
-                dx = dx + sx
+        if (tx>ty) {
+            while (true){
+                this.paintDot(dx,dy,rgbcolor)
+                if (dx>=p2[0]&dy>=p2[1]) {break;}
+                e2 = 2*err
+                if (e2>-ty) {
+                    err = err - ty
+                    dx = dx + sx
+                }
+                if (e2<tx) {
+                    err = err + tx
+                    dy = dy + sy
+                }
             }
-            if (e2<tx) {
-                err = err + tx
-                dy = dy + sy
+        }
+        else {
+            while (true){
+                this.paintDot(dx,dy,rgbcolor)
+                if (dx>=p2[0]&dy>=p2[1]) {break;}
+                e2 = 2*err
+                if (e2>ty) {
+                    err = err - ty
+                    dx = dx + sx
+                }
+                if (e2<-tx) {
+                    err = err + tx
+                    dy = dy + sy
+                }
             }
         }
     }
@@ -88,7 +109,8 @@ class Paint {
     }
 
     paintBezierCurve(points,rgbcolor) {
-        for (let t=0;t<1;t+=0.01) {
+        let cps = []
+        for (let t=0;t<=1;t+=0.1) {
             let s = 1
             let pts = [points]
             for (s=1;s<pts[0].length;s++) {
@@ -98,7 +120,12 @@ class Paint {
                 }
             }
             let dot = this.m2d.floor(pts[pts[0].length-1][0])
-            this.paintDot(dot[0],dot[1],rgbcolor)
+            cps.push(dot)
+        }
+        console.log(cps.length)
+        for (let i=0;i<cps.length-1;i++) {
+            this.paintLine(cps[i],cps[i+1],rgbcolor)
+            console.log(i)
         }
     }
 }
