@@ -19,4 +19,7 @@ class m2D {
     floor(p) {
       return [Math.floor(p[0]),Math.floor(p[1])]
     }
+    swapxy(p) {
+      return [p[1],p[0]]
+    }
 }
