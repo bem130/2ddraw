@@ -46,6 +46,8 @@ class Paint {
     paintLine(p1,p2,rgbcolor) { // 参考: https://ja.wikipedia.org/wiki/%E3%83%96%E3%83%AC%E3%82%BC%E3%83%B3%E3%83%8F%E3%83%A0%E3%81%AE%E3%82%A2%E3%83%AB%E3%82%B4%E3%83%AA%E3%82%BA%E3%83%A0
         let tx = Math.abs(p2[0]-p1[0])
         let ty = Math.abs(p2[1]-p1[1])
+        this.paintDot(p1[0],p1[1],[0,0,0])
+        this.paintDot(p2[0],p2[1],[0,0,0])
         let err = tx-ty
         let sx,sy
         let dx = p1[0]
@@ -63,7 +65,7 @@ class Paint {
                 dx = dx + sx
             }
             if (e2<tx) {
-                err = err + dx
+                err = err + tx
                 dy = dy + sy
             }
         }
