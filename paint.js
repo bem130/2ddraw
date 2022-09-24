@@ -100,6 +100,14 @@ class Paint {
             }
         }
     }
+    paintFilledPoligon(points,rgbcolor) {
+        let lines = [];
+        for (let i=0;i<points.length-1;i++) {
+            lines.push([points[i],points[i+1]]);
+        }
+        lines.push([points[points.length-1],points[0]]);
+        console.log(lines)
+    }
 
     paintBezierCurve(points,rgbcolor) {
         let cps = []
